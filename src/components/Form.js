@@ -1,8 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Form({ onAddItems }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
+  
+  const [items ,setItem]=useState(()=>{
+    const savedItems= localStorage.getItem('items')
+    return savedItems? JSON.parse(savedItems):[];
+  });
+
+  useEffect(()=>{
+   localStorage.setItem('description',JSON.stringify(items))
+  },[items]);
 
   function handleAdd(e) {
     e.preventDefault();
@@ -12,6 +21,9 @@ export default function Form({ onAddItems }) {
     const newItems = { description, quantity, packed: false, id: Date.now() };
     console.log(newItems);
 
+    // Add the new item to the items array 
+    setItem((prevItems) => [...prevItems, newItems]);
+
     //handleItem(newItems);
     onAddItems(newItems);
     setDescription("");
@@ -19,7 +31,7 @@ export default function Form({ onAddItems }) {
   }
   return (
     <form className="form" action="" method="">
-      <h3>What do yo need for your trip 😍</h3>
+      <h3>Highlighted or special task 🚀</h3>
       <select
         value={quantity}
         onChange={(e) => setQuantity(Number(e.target.value))}

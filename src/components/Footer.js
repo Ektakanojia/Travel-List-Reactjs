@@ -9,7 +9,7 @@ export default function Footer({ items }) {
       <em>
         {numPercentage === 100
           ? "you got everything ! Ready to go ✈️"
-          : `🛍️You have ${numItem} item in your list ,and you already packed 
+          : `🛍️You have ${numItem} item in your list ,and you already completed
         ${numPacked}(${numPercentage}%)`}
       </em>
     </div>
